@@ -24,7 +24,7 @@ I have built multiple modern web applications using **React**, **Next.js**, **Fi
 
 ### 🔐 Password Manager
 A modern password manager built with **React**, **Firebase**, and **Tailwind CSS**. It securely stores and manages user passwords with real-time sync and responsive UI.  
-🔗 **Live Demo:** Coming Soon  
+🔗 **Live Demo:** [Password Manager](https://passwordmanager-by-zubairprocoder.netlify.app/)
 
 ---
 
