@@ -1,0 +1,16 @@
+@import "tailwindcss";
+
+
+body {
+  /* Outer gradient */
+  background: linear-gradient(to right, #a78bfa, #f9a8d4, #818cf8);
+
+  /* Internal gradient overlay using multiple backgrounds */
+  background: 
+    linear-gradient(to bottom, #ffffff, #e9d5ff, #fbcfe8),
+    linear-gradient(to right, #a78bfa, #f9a8d4, #818cf8);
+
+  min-height: 100vh;
+  margin: 0;
+  font-family: sans-serif;
+}
