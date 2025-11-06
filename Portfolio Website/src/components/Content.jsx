@@ -1,335 +1,238 @@
 import React, { useState, useEffect } from "react";
+import Sidebar from "./Sidebar";
 const Content = () => {
-    const [animate, setAnimate] = useState(false);
-    const [reset, setReset] = useState(false);
-    const texts = [
-        "I am a passionate full-stack developer.",
-        "I love building responsive web apps.",
-        "React and TailwindCSS are my favorite tools.",
-        "I enjoy solving complex problems.",
-        "Always learning new web technologies.",
-        "Coding is my creative outlet.",
-    ];
-    const btns = [
-        "Client satisfaction rate",
-        "Business transformed",
-        "Experience and Expertise",
-    ];
-    const textpr = [
-        { id: "98%", p: "Delivering measurable financial impact." },
-        { id: "99+", p: "Helping companies grow, perform better." },
-        { id: "14+", p: "Trusted and recommended by clients." },
-    ];
-    const linkspt = [
-        { p: "Branding", src: "https://cdn.prod.website-files.com/687093791857daf2b2090c68/688b9e09d32f9f878b9f63bd_Right%20Arrow.svg" },
-        { p: "Web Development", src: "https://cdn.prod.website-files.com/687093791857daf2b2090c68/688b9e09d32f9f878b9f63bd_Right%20Arrow.svg" },
-        { p: "Web Design", src: "https://cdn.prod.website-files.com/687093791857daf2b2090c68/688b9e09d32f9f878b9f63bd_Right%20Arrow.svg" },
-        { p: "Marketing", src: "https://cdn.prod.website-files.com/687093791857daf2b2090c68/688b9e09d32f9f878b9f63bd_Right%20Arrow.svg" },
-    ]
-    const infiniteText = texts.join(" ⚡ ");
-    useEffect(() => {
-        if (animate) {
-            // 2s ke baad reset trigger
-            const timer = setTimeout(() => {
-                setReset(true); // reverse animation
-                setAnimate(false);
-            }, 500);
+  const [animate, setAnimate] = useState(null);
 
-            // half-second baad reset state clear
-            const resetTimer = setTimeout(() => setReset(false), 500);
+  const [reset, setReset] = useState(false);
+  const [email, setEmail] = useState("");
+  const [hovered, setHovered] = useState(null);
+  const handleSend = () => {
+    if (email.trim() === "") {
+      alert("Please enter your email first!");
+      return;
+    }
+    const handleHover = (key) => {
+      setAnimate(key);
+      setTimeout(() => setAnimate(null), 1000); // 1s ke baad reset
+    };
 
-            return () => {
-                clearTimeout(timer);
-                clearTimeout(resetTimer);
-            };
-        }
-    }, [animate]);
+    localStorage.setItem("userEmail", email);
+    alert("✅ Email saved locally!");
+    setEmail("");
+  };
+  const texts = [
+    "I am a passionate full-stack developer.",
+    "I love building responsive web apps.",
+    "React and TailwindCSS are my favorite tools.",
+    "I enjoy solving complex problems.",
+    "Always learning new web technologies.",
+    "Coding is my creative outlet.",
+  ];
+  const btns = [
+    "Client satisfaction rate",
+    "Business transformed",
+    "Experience and Expertise",
+  ];
+  const textpr = [
+    { id: "98%", p: "Delivering measurable financial impact." },
+    { id: "99+", p: "Helping companies grow, perform better." },
+    { id: "14+", p: "Trusted and recommended by clients." },
+  ];
+  const linkspt = [
+    {
+      p: "Branding",
+      src: "https://cdn.prod.website-files.com/687093791857daf2b2090c68/688b9e09d32f9f878b9f63bd_Right%20Arrow.svg",
+    },
+    {
+      p: "Web Development",
+      src: "https://cdn.prod.website-files.com/687093791857daf2b2090c68/688b9e09d32f9f878b9f63bd_Right%20Arrow.svg",
+    },
+    {
+      p: "Web Design",
+      src: "https://cdn.prod.website-files.com/687093791857daf2b2090c68/688b9e09d32f9f878b9f63bd_Right%20Arrow.svg",
+    },
+    {
+      p: "Marketing",
+      src: "https://cdn.prod.website-files.com/687093791857daf2b2090c68/688b9e09d32f9f878b9f63bd_Right%20Arrow.svg",
+    },
+  ];
+  const caseStudies = [
+    {
+      src: "https://cdn.prod.website-files.com/687093791857daf2b2090c68/68a876ae79392bd4aef404c1_C-01-p-500.webp",
+      title: "Smarter Flight Booking UX",
+      description:
+        "Led design for SaaS dashboards, landing pages, and mobile apps",
+      challenge: "Led design for SaaS dashboards, landing pages, mobile apps",
+      solution: "Led design for SaaS dashboards, landing pages, mobile apps",
+      stats: [
+        { percent: "60%", text: "Increase subscriber" },
+        { percent: "40%", text: "Grow new user to Contact Us" },
+      ],
+    },
+    {
+      src: "https://cdn.prod.website-files.com/687093791857daf2b2090c68/68a876b77104fdfdaaba3e82_C-02-p-500.webp",
+      title: "Driving Digital Growth",
+      description: "Driving Digital Growth leverages technology, innovation.",
+      challenge: "Led design for SaaS dashboards, landing pages, mobile apps",
+      solution: "Led design for SaaS dashboards, landing pages, mobile apps",
+      stats: [
+        { percent: "60%", text: "Increase subscriber" },
+        { percent: "40%", text: "Grow new user to Contest Us" },
+      ],
+    },
+    {
+      src: "https://cdn.prod.website-files.com/687093791857daf2b2090c68/68a876b7307554a4498a1040_C-03-p-500.webp",
+      title: "Designing Future Success",
+      description:
+        "Led design for SaaS dashboards, landing pages, and mobile apps",
+      challenge: "Led design for SaaS dashboards, landing pages, mobile apps",
+      solution: "Led design for SaaS dashboards, landing pages, mobile apps.",
+      stats: [
+        { percent: "60%", text: "Increase subscriber" },
+        { percent: "40%", text: "Grow new user to Contest Us" },
+      ],
+    },
+  ];
+  const products = [
+    {
+      src: "https://cdn.prod.website-files.com/687093791857daf2b2090c68/68a216d4d57a91ab2e4173fe_Feture%2001-p-500.webp",
+      title: "Horizon Tec Product",
+      description:
+        "Crafting visually stunning, user-centered websites tailored",
+      arrow:
+        "https://cdn.prod.website-files.com/687093791857daf2b2090c68/68851c2d5632001a61927f54_Right%20arrow%20servise.svg",
+    },
+    {
+      src: "https://cdn.prod.website-files.com/687093791857daf2b2090c68/68a216d2d7ac585cdf07fff1_Feture%2002-p-500.webp",
+      title: "Creative Identity",
+      description: "Built modern visuals enhancing brand enhancement",
+      arrow:
+        "https://cdn.prod.website-files.com/687093791857daf2b2090c68/68851c2d5632001a61927f54_Right%20arrow%20servise.svg",
+    },
+    {
+      src: "https://cdn.prod.website-files.com/687093791857daf2b2090c68/68a216d4d39a1a3d6c9ac6b0_Feture%2003-p-500.webp",
+      title: "Commerce Website",
+      description: "Designed seamless shopping experience online",
+      arrow:
+        "https://cdn.prod.website-files.com/687093791857daf2b2090c68/68851c2d5632001a61927f54_Right%20arrow%20servise.svg",
+    },
+    {
+      src: "https://cdn.prod.website-files.com/687093791857daf2b2090c68/68a216d4c5eac90a7ee31923_Feture%2004-p-500.webp",
+      title: "AI Startup Landing",
+      description: "Created engaging landing showcasing AI beautiful",
+      arrow:
+        "https://cdn.prod.website-files.com/687093791857daf2b2090c68/68851c2d5632001a61927f54_Right%20arrow%20servise.svg",
+    },
+    {
+      src: "https://cdn.prod.website-files.com/687093791857daf2b2090c68/68a216d27fc9a0ca071aff59_Feture%2005-p-500.webp",
+      title: "Marketing Campain",
+      description: "Delivered strategies driving measurable increment",
+      arrow:
+        "https://cdn.prod.website-files.com/687093791857daf2b2090c68/68851c2d5632001a61927f54_Right%20arrow%20servise.svg",
+    },
+    {
+      src: "https://cdn.prod.website-files.com/687093791857daf2b2090c68/68a216d2d9e7cdc52d40aa5c_Feture%2006-p-500.webp",
+      title: "Mobile App UI",
+      description: "Designed intuitive interface for usability and UI",
+      arrow:
+        "https://cdn.prod.website-files.com/687093791857daf2b2090c68/68851c2d5632001a61927f54_Right%20arrow%20servise.svg",
+    },
+  ];
+  const awards = [
+    {
+      companyImg:
+        "https://cdn.prod.website-files.com/687093791857daf2b2090c68/68935632d5e6ef16ea4d9747_Holo%20Tech%20Ltd.webp",
+      companyName: "Pixel Nova",
+      role: "Senior UI/UX Designer",
+      awardImg:
+        "https://cdn.prod.website-files.com/687093791857daf2b2090c68/68935632d5e6ef16ea4d9750_Award%2001.webp",
+      year: "2024 | 2025",
+      awardText: "2x Award",
+    },
+    {
+      companyImg:
+        "https://cdn.prod.website-files.com/687093791857daf2b2090c68/68935632d5e6ef16ea4d9741_Gold%20Winner.webp",
+      companyName: "Designora",
+      role: "Senior UI/UX Designer",
+      awardImg:
+        "https://cdn.prod.website-files.com/687093791857daf2b2090c68/68935632d5e6ef16ea4d9753_Award%2002.webp",
+      year: "2022 | 2023",
+      awardText: "Award",
+    },
+    {
+      companyImg:
+        "https://cdn.prod.website-files.com/687093791857daf2b2090c68/68935632d5e6ef16ea4d9744_Genuine%20Nova%20Flow.webp",
+      companyName: "VibeForge",
+      role: "Senior UI/UX Designer",
+      awardImg:
+        "https://cdn.prod.website-files.com/687093791857daf2b2090c68/68935632d5e6ef16ea4d974d_Award%2003.webp",
+      year: "2020 | 2021",
+      awardText: "Award",
+    },
+    {
+      companyImg:
+        "https://cdn.prod.website-files.com/687093791857daf2b2090c68/68935632d5e6ef16ea4d9744_Genuine%20Nova%20Flow.webp",
+      companyName: "NovaCraft",
+      role: "Senior UI/UX Designer",
+      awardImg:
+        "https://cdn.prod.website-files.com/687093791857daf2b2090c68/68935632d5e6ef16ea4d974a_Award%2004.webp",
+      year: "2019 | 2019",
+      awardText: "Award",
+    },
+  ];
+  const designServices = [
+    {
+      title: "UI / UX Design",
+      description:
+        "Focused on creating intuitive, user-centered designs backed by research, testing, and strong visual logic.",
+      skills: ["Wireframing", "Prototyping", "Usability", "Interaction"],
+    },
+    {
+      title: "Graphic Design",
+      description:
+        "Designing visuals that communicate clearly and align with brand strategy, from logos to layouts.",
+      skills: ["Typography", "Branding", "Illustration", "Layout"],
+    },
+    {
+      title: "Sketch Skills",
+      description:
+        "Focused on creating intuitive, user-centered designs backed by research, testing, and strong visual logic.",
+      skills: ["Symbols", "Artboards", "Prototyping", "Components"],
+    },
+    {
+      title: "Front-End Dev",
+      description:
+        "Focused on creating intuitive, user-centered designs backed by research, testing, and strong visual logic.",
+      skills: ["Webflow", "HTML", "CSS", "JavaScript"],
+    },
+  ];
 
-    // Function to trigger animation
-    const triggerAnimation = () => setAnimate(true);
-    return (
-        <>
-            <main className="mt-4 h-[2240px] overflow-hidden w-full container mx-auto">
-                <div className="sideright flex items-center justify-around gap-3">
-                    <div className="side">
-                        <div className="">
-                            <svg
-                                width="60"
-                                height="60"
-                                viewBox="0 0 20 20"
-                                fill="none"
-                                xmlns="http://www.w3.org/2000/svg"
-                            >
-                                <path
-                                    d="M12.1126 9.23891L15.4645 10.5506C17.3978 11.3071 18.3645 11.6853 18.3325 12.2853C18.3004 12.8853 17.2916 13.1605 15.2739 13.7107C14.6732 13.8746 14.3728 13.9565 14.1646 14.1648C13.9563 14.3731 13.8743 14.6734 13.7105 15.2742C13.1603 17.2918 12.8851 18.3007 12.2851 18.3327C11.6851 18.3647 11.3068 17.3981 10.5503 15.4647L9.23867 12.1128C8.44659 10.0887 8.05059 9.07666 8.5635 8.56375C9.07642 8.05083 10.0884 8.44683 12.1126 9.23891Z"
-                                    stroke="black"
-                                    stroke-linejoin="round"
-                                ></path>
-                                <path
-                                    d="M9.04808 5.90258C9.22625 6.19824 9.61033 6.2935 9.906 6.11535C10.2017 5.9372 10.2969 5.5531 10.1187 5.25745L9.04808 5.90258ZM5.2577 10.1185C5.55335 10.2967 5.93744 10.2014 6.11559 9.90575C6.29374 9.61009 6.19848 9.226 5.90282 9.04784L5.2577 10.1185ZM4.79175 7.08317C4.79175 5.81752 5.81777 4.7915 7.08341 4.7915V3.5415C5.12742 3.5415 3.54175 5.12716 3.54175 7.08317H4.79175ZM7.08341 4.7915C7.91628 4.7915 8.64608 5.23544 9.04808 5.90258L10.1187 5.25745C9.5 4.23056 8.3725 3.5415 7.08341 3.5415V4.7915ZM5.90282 9.04784C5.23568 8.64584 4.79175 7.91605 4.79175 7.08317H3.54175C3.54175 8.37225 4.23081 9.49975 5.2577 10.1185L5.90282 9.04784Z"
-                                    fill="black"
-                                ></path>
-                                <path
-                                    d="M11.8763 6.77899C11.8982 7.12347 12.1952 7.38497 12.5397 7.36306C12.8842 7.34115 13.1457 7.04414 13.1238 6.69966L11.8763 6.77899ZM6.70106 13.1236C7.04556 13.1454 7.34252 12.8838 7.36437 12.5394C7.38621 12.1949 7.12465 11.8979 6.78016 11.8761L6.70106 13.1236ZM2.29175 7.08868C2.29175 4.43928 4.43955 2.2915 7.08895 2.2915V1.0415C3.74921 1.0415 1.04175 3.74891 1.04175 7.08868H2.29175ZM7.08895 2.2915C9.63425 2.2915 11.7171 4.27422 11.8763 6.77899L13.1238 6.69966C12.9229 3.54088 10.2981 1.0415 7.08895 1.0415V2.2915ZM6.78016 11.8761C4.27496 11.7173 2.29175 9.63434 2.29175 7.08868H1.04175C1.04175 10.2982 3.54176 12.9233 6.70106 13.1236L6.78016 11.8761Z"
-                                    fill="black"
-                                ></path>
-                            </svg>
-                            <span className="px-10 text-[#1e1e1e]">Hello Folk</span>
-                        </div>
-                        <h2 className="text-2xl font-semibold mt-2">
-                            Freelance Web Designer from Los Angeles
-                        </h2>
-                        <p className="mt-2">
-                            I specialize in delivering designs that are not only visually
-                            striking but also impactful.
-                        </p>
-                        <div className="flex gap-6 mt-6">
-                            {/* Button 1 */}
-                            <button
-                                className="relative flex items-center gap-3 px-8  h-12 text-center cursor-pointer   bg-black text-white font-semibold rounded-lg overflow-hidden"
-                                onMouseEnter={triggerAnimation}
-                                onFocus={triggerAnimation}
-                            >
-                                <span
-                                    className={`transition-transform ${animate
-                                        ? "duration-300 -translate-y-12"
-                                        : reset
-                                            ? "duration-500 translate-y-0"
-                                            : "translate-y-0"
-                                        }`}
-                                >
-                                    Let’s talk
-                                </span>
-                                <span
-                                    className={`transition-transform text-4xl ${animate
-                                        ? "duration-300 translate-x-12"
-                                        : reset
-                                            ? "duration-500 translate-x-0"
-                                            : "translate-x-0"
-                                        }`}
-                                >
-                                    →
-                                </span>
-                            </button>
+  const infiniteText = texts.join(" ⚡ ");
+  useEffect(() => {
+    if (animate) {
+      // 2s ke baad reset trigger
+      const timer = setTimeout(() => {
+        setReset(true); // reverse animation
+        setAnimate(false);
+      }, 500);
 
-                            {/* Button 2 */}
-                            <button
-                                className="relative flex items-center gap-3 px-8 h-12 bg-white text-black font-semibold border border-black rounded-lg cursor-pointer overflow-hidden"
-                                onMouseEnter={triggerAnimation}
-                                onFocus={triggerAnimation}
-                            >
-                                <span
-                                    className={`transition-transform ${animate
-                                        ? "duration-300 -translate-y-12"
-                                        : reset
-                                            ? "duration-500 translate-y-0"
-                                            : "translate-y-0"
-                                        }`}
-                                >
-                                    Download CV
-                                </span>
-                                <span
-                                    className={`transition-transform text-4xl ${animate
-                                        ? "duration-300 translate-x-12"
-                                        : reset
-                                            ? "duration-500 translate-x-0"
-                                            : "translate-x-0"
-                                        }`}
-                                >
-                                    →
-                                </span>
-                            </button>
-                        </div>
-                        {/* images */}
-                        <div className="images mt-6 relative h-25">
-                            <img
-                                src="https://cdn.prod.website-files.com/687093791857daf2b2090c68/688344e499f7cdd68005ff5b_Satisfied%20client%2001.webp"
-                                alt="pic boys"
-                                width={50}
-                                height={50}
-                                className="rounded-full cursor-pointer absolute transition-transform duration-300 hover:scale-110"
-                            />
-                            <img
-                                src="https://cdn.prod.website-files.com/687093791857daf2b2090c68/688344e499f7cdd68005ff59_Satisfied%20client%2002.webp"
-                                alt="pic boys"
-                                width={50}
-                                height={50}
-                                className="rounded-full cursor-pointer absolute z-1 left-10 transition-transform duration-300 hover:scale-110"
-                            />
-                            <img
-                                src="https://cdn.prod.website-files.com/687093791857daf2b2090c68/688344e499f7cdd68005ff55_Satisfied%20client%2003.webp"
-                                alt="pic boys"
-                                width={50}
-                                height={50}
-                                className="rounded-full cursor-pointer absolute z-2 left-21 transition-transform duration-300 hover:scale-110"
-                            />
-                            <img
-                                src="https://cdn.prod.website-files.com/687093791857daf2b2090c68/6883c1c5aedff03f6da19d25_Ellipse%2010.webp"
-                                alt="pic boys"
-                                width={50}
-                                height={50}
-                                className="rounded-full cursor-pointer absolute z-2 left-31 transition-transform duration-300 hover:scale-110"
-                            />
-                            <div className="text-[16px] bg-black text-white rounded-full cursor-pointer w-13 h-13 absolute left-40 z-5 flex items-center justify-center">
-                                98%
-                            </div>
-                        </div>
-                        <div className=" font-medium pb-1.5">
-                            Loved by founders globally
-                        </div>
-                        <p>5K Clients Word-Wide</p>
-                    </div>
-                    <div className="flex ">
-                        <div className="">
-                            <img
-                                src="https://cdn.prod.website-files.com/687093791857daf2b2090c68/68a5f806a9d2add52beaf575_Resume%20Nova%20Hero%20Image-p-500.webp"
-                                alt="boy pic"
-                            />
-                            <div className="bg-[#323232] flex flex-col gap-2 items-start px-4 p-2 rounded-b-xl">
-                                <img
-                                    src="https://cdn.prod.website-files.com/687093791857daf2b2090c68/689b7d88772a73afb1940c69_Hero%20ratings.webp"
-                                    alt="pic"
-                                    width={120}
-                                />
-                                <p className="text-[#c8c8c8] text-md font-medium ">
-                                    Rated by 5K+ global clients and 20 companies
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <marquee behavior="alternate" direction="left" scrollamount="6">
-                    ✨ I am a passionate full-stack developer 💻 | I love building
-                    responsive web apps 🌐 | React and TailwindCSS are my favorite tools
-                    ⚛️ | I enjoy solving complex problems 💡 | Always learning new web
-                    technologies 🚀 | Coding is my creative outlet ❤️
-                </marquee>
-                {/* About me */}
-                <div className="bg-[#323232] rounded-xl text-[#fff] p-4">
-                    <h3 className=" uppercase font-bold">- About Me</h3>
-                    <div className="flex">
-                        <p className="font-medium text-md pt-2">
-                            I’m Ethan Riley, your creative partner in design. For me, design
-                            is all about creating experiences that really connect with people.
-                            It’s not just looking good
-                        </p>
-                        <img
-                            src="https://cdn.prod.website-files.com/687093791857daf2b2090c68/68a5f806a9d2add52beaf575_Resume%20Nova%20Hero%20Image-p-500.webp"
-                            alt="boys"
-                            width={150}
-                            className="rounded-xl"
-                        />
-                    </div>
+      // half-second baad reset state clear
+      const resetTimer = setTimeout(() => setReset(false), 500);
 
-                    <div className="flex gap-4 mt-6">
-                        {btns.map((btn, i) => (
-                            <button
-                                key={i}
-                                className="px-6 py-3 text-white rounded-lg transition duration-300 hover:opacity-90"
-                                style={{ backgroundColor: "#4D4D4D" }} // 👈 Tailwind custom color inline
-                            >
-                                {btn}
-                            </button>
-                        ))}
-                    </div>
-                    <div className="flex  items-center justify-center gap-2 mt-6">
-                        {textpr.map((item, i) => (
-                            <div
-                                key={i}
-                                className="flex  items-center gap-2  text-white px-3 py-2 rounded-2xl  hover:scale-105 transition-transform duration-300"
-                            >
-                                <h2 className="text-3xl font-bold">{item.id}</h2>
-                                <p className="text-sm  mt-2 text-start">{item.p}</p>
-                            </div>
-                        ))}
-                    </div>
-                </div>
+      return () => {
+        clearTimeout(timer);
+        clearTimeout(resetTimer);
+      };
+    }
+  }, [animate]);
 
-                {/* SERVICE */}
-                <div className="flex flex-col gap-4 mt-5">
-                    <h3 className=" uppercase font-bold">- MY SERVICE</h3>
-                    <h2 className="font-semibold text-xl">Professional Service Solutions</h2>
-                    <div className="flex gap-6 mt-6">
-                        {/* Button 1 */}
-                        <button
-                            className="relative flex items-center gap-3 px-8  h-12 text-center cursor-pointer   bg-black text-white font-semibold rounded-lg overflow-hidden"
-                            onMouseEnter={triggerAnimation}
-                            onFocus={triggerAnimation}
-                        >
-                            <span
-                                className={`transition-transform ${animate
-                                    ? "duration-300 -translate-y-12"
-                                    : reset
-                                        ? "duration-500 translate-y-0"
-                                        : "translate-y-0"
-                                    }`}
-                            >
-                                Hire Me
-                            </span>
-                            <span
-                                className={`transition-transform text-4xl ${animate
-                                    ? "duration-300 translate-x-12"
-                                    : reset
-                                        ? "duration-500 translate-x-0"
-                                        : "translate-x-0"
-                                    }`}
-                            >
-                                →
-                            </span>
-                        </button>
-
-                        {/* Button 2 */}
-                        <button
-                            className="relative flex items-center gap-3 px-8 h-12 bg-white text-black font-semibold border border-black rounded-lg cursor-pointer overflow-hidden"
-                            onMouseEnter={triggerAnimation}
-                            onFocus={triggerAnimation}
-                        >
-                            <span
-                                className={`transition-transform ${animate
-                                    ? "duration-300 -translate-y-12"
-                                    : reset
-                                        ? "duration-500 translate-y-0"
-                                        : "translate-y-0"
-                                    }`}
-                            >
-                                Watch Video
-                            </span>
-                            <span
-                                className={`transition-transform text-4xl ${animate
-                                    ? "duration-300 translate-x-12"
-                                    : reset
-                                        ? "duration-500 translate-x-0"
-                                        : "translate-x-0"
-                                    }`}
-                            >
-                                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M9.99984 18.3333C14.6022 18.3333 18.3332 14.6023 18.3332 9.99996C18.3332 5.39759 14.6022 1.66663 9.99984 1.66663C5.39746 1.66663 1.6665 5.39759 1.6665 9.99996C1.6665 14.6023 5.39746 18.3333 9.99984 18.3333Z" stroke="black" stroke-width="1.25"></path>
-                                    <path d="M7.9165 9.33321V10.6669C7.9165 11.933 7.9165 12.566 8.2963 12.8219C8.67609 13.0777 9.1955 12.7946 10.2344 12.2285L11.4579 11.5615C12.7081 10.8802 13.3332 10.5395 13.3332 10C13.3332 9.46054 12.7081 9.11987 11.4579 8.43854L10.2344 7.77166C9.1955 7.20546 8.67609 6.92236 8.2963 7.17822C7.9165 7.43409 7.9165 8.06712 7.9165 9.33321Z" fill="black"></path>
-                                </svg>
-                            </span>
-                        </button>
-                    </div>
-                    <div className="flex items-center justify-around gap-3 p-3 w-full">
-                        <div className="flex  flex-col gap-5  w-1/2">
-                            {linkspt.map((linkspt, i) => (
-                                <div className="flex items-center cursor-pointer justify-between gap-3 w-full bg-[#F5F5F5] rounded-md">
-                                    <a href="#Branding" className=" font-medium text-xl">
-                                        {linkspt.p}
-                                    </a>
-                                    <a href="#">
-                                        <img src={linkspt.src} width={40} alt="arrow" className="rounded-full border p-2" />
-                                    </a>
-                                </div>
-                            ))}
-                        </div>
-                        <img src="https://cdn.prod.website-files.com/687093791857daf2b2090c68/6892294bb1f6b631388be253_RW%2004-p-500.webp" alt="product pic" className="rounded-xl w-100" wid />
-
-                    </div>
-                </div>
-
-            </main>
-        </>
-    );
+  // Function to trigger animation
+ 
+  return (
+    <>
+     
+    </>
+  );
 };
 
 export default Content;
